@@ -22,3 +22,19 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{
     attribution:"OpenStreetMap"
     ///which appears bottom right
 }).addTo(map);
+
+const markers={};
+
+socket.on("recieve-location", (data)=>{
+    const {id, latitude, longitude}=data;
+    map.setView([latitude, longitude]);
+
+    if(markers[id]){
+        markers[id].setLatLng([latitude, longitude]);
+    }
+    else{
+        markers[id]=L.marker([latitude,longitude]).addTo(map);
+    }
+});
+
+socket.on("d")
